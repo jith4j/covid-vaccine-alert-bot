@@ -5,13 +5,11 @@ from datetime import datetime
 base_cowin_url = "https://cdn-api.co-vin.in/api/v2/appointment/sessions/public/calendarByDistrict"
 
 api_url_telegram = "https://api.telegram.org/botenteryourbotidhere/sendMessage?chat_id=@__groupid__&text="
-# Change "enteryourbotidhere" to your bot id.
-# something like: https://api.telegram.org/botdjwjw1690snklnm3890j5j5k/sendMessage?chat_id=@__groupid__&text=
 
 
 now = datetime.now()
 today_date = now.strftime("%d-%m-%Y")
-group_id = ""       # Enter your telegram group id here
+group_id = ""      
 
 
 name_list = []
@@ -21,8 +19,6 @@ def fetch_data_from_cowin(district_id):
     querry_params = "?district_id={}&date={}".format(district_id, today_date)
     headers = {
         'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.101 Safari/537.36'}
-    # If this header is not working try changing the header to your personal header
-    # If can be found at https://www.whatismybrowser.com/detect/what-is-my-user-agent
     final_url = base_cowin_url + querry_params
     response = requests.get(final_url, headers=headers)
     extract_availability_data(response)
@@ -63,6 +59,5 @@ def send_message_telegram(message):
 
 while(True):
     fetch_data_from_cowin(296)
-
 # 296 is of Trivandrum district
-# Change it your prefered district
+
